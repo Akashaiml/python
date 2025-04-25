@@ -1,0 +1,48 @@
+
+class Solution(object):
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        def row_check(board):
+            dic = {}
+            for i in range(9):
+                for j in range(9):
+                    if board[i][j] != ".":
+                        if board[i][j] not in dic:
+                            dic[board[i][j]] = 1
+                        else:
+                            return False
+                # print(dic)
+                dic = {}
+            return True
+        def col_check(board):
+            dic = {}
+            for i in range(9):
+                for j in range(9):
+                    if board[j][i] != ".":
+                        if board[j][i] not in dic:
+                            dic[board[j][i]] = 1
+                        else:
+                            return False
+                #print(dic)
+                dic = {}
+            return True 
+        def sub_box_check(board):
+            for i in range(0, 9, 3):
+                for j in range(0, 9, 3):
+                    dic = {}
+                    for row in range(i, i+3):
+                        for col in range(j, j+3):
+                            if board[row][col] != ".":
+                                if board[row][col] not in dic:
+                                    dic[board[row][col]] = 1
+                                else:
+                                    return False
+                    dic = {}
+            return True
+        if row_check(board) and col_check(board) and sub_box_check(board):
+            return True
+        else:
+            return False
